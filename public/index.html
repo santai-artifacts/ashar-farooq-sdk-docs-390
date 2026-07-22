@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDK Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sidebar-w: 240px;
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2d3a;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --accent: #6c8fff;
+      --accent-dim: #6c8fff22;
+      --code-bg: #141720;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Sidebar */
+    aside {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      padding: 28px 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      background: var(--surface);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .logo-icon {
+      width: 28px; height: 28px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: grid; place-items: center;
+      font-size: 14px; font-weight: 700; color: #fff;
+    }
+
+    .logo-name { font-weight: 600; font-size: 15px; }
+    .logo-tag { font-size: 11px; color: var(--muted); }
+
+    nav { padding: 0 12px; }
+
+    .nav-section { font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--muted); padding: 10px 8px 4px; }
+
+    nav a {
+      display: block;
+      padding: 6px 8px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13.5px;
+      transition: background .15s, color .15s;
+    }
+
+    nav a:hover { background: var(--accent-dim); color: var(--text); }
+    nav a.active { background: var(--accent-dim); color: var(--accent); font-weight: 500; }
+
+    /* Main */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: 740px;
+      padding: 56px 48px;
+      width: 100%;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: .04em;
+      margin-bottom: 16px;
+    }
+
+    h1 { font-size: 32px; font-weight: 600; line-height: 1.2; margin-bottom: 12px; }
+    h2 { font-size: 20px; font-weight: 600; margin: 40px 0 12px; }
+    p { color: var(--muted); margin-bottom: 16px; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+    /* Code block */
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px; color: var(--muted);
+    }
+
+    .code-dots { display: flex; gap: 6px; }
+    .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+
+    pre {
+      padding: 20px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .kw { color: #c792ea; }
+    .fn { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .cm { color: #546e7a; font-style: italic; }
+    .nm { color: #f78c6c; }
+
+    /* Cards */
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: border-color .2s, transform .15s;
+    }
+
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card-icon { font-size: 22px; margin-bottom: 10px; }
+    .card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    @media (max-width: 640px) {
+      aside { display: none; }
+      main { margin-left: 0; padding: 32px 20px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">S</div>
+      <div>
+        <div class="logo-name">MySDK</div>
+        <div class="logo-tag">v1.0 · Docs</div>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-section">Getting Started</div>
+      <a href="#" class="active">Introduction</a>
+      <a href="#">Quickstart</a>
+      <a href="#">Installation</a>
+
+      <div class="nav-section">Core</div>
+      <a href="#">Authentication</a>
+      <a href="#">Making Requests</a>
+      <a href="#">Error Handling</a>
+
+      <div class="nav-section">Reference</div>
+      <a href="#">API Reference</a>
+      <a href="#">SDK Reference</a>
+      <a href="#">Changelog</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="badge">Getting Started</div>
+    <h1>Introduction</h1>
+    <p>
+      MySDK is a lightweight client library that makes it easy to integrate
+      our API into your application. Works in Node.js, Bun, and the browser.
+    </p>
+
+    <hr class="divider" />
+
+    <h2>Install</h2>
+    <p>Add the SDK to your project with your package manager of choice.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+        </div>
+        <span>Terminal</span>
+      </div>
+      <pre>npm install mysdk</pre>
+    </div>
+
+    <h2>Quick Example</h2>
+    <p>Initialize the client and make your first call in a few lines.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+        </div>
+        <span>index.ts</span>
+      </div>
+      <pre><span class="kw">import</span> { <span class="fn">MySDK</span> } <span class="kw">from</span> <span class="str">'mysdk'</span>;
+
+<span class="cm">// Initialize with your API key</span>
+<span class="kw">const</span> client = <span class="kw">new</span> <span class="fn">MySDK</span>({
+  apiKey: <span class="str">'sk-...'</span>,
+});
+
+<span class="cm">// Make a request</span>
+<span class="kw">const</span> result = <span class="kw">await</span> client.<span class="fn">hello</span>({ name: <span class="str">'world'</span> });
+console.<span class="fn">log</span>(result.message); <span class="cm">// "Hello, world!"</span></pre>
+    </div>
+
+    <hr class="divider" />
+
+    <h2>Explore the Docs</h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Quickstart</div>
+        <div class="card-desc">Get up and running in under 5 minutes.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔑</div>
+        <div class="card-title">Authentication</div>
+        <div class="card-desc">Learn how to authenticate your requests.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <div class="card-title">API Reference</div>
+        <div class="card-desc">Full reference for every endpoint.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛠️</div>
+        <div class="card-title">SDK Reference</div>
+        <div class="card-desc">Types, methods, and configuration options.</div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

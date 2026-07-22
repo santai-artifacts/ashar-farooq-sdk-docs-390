@@ -1,0 +1,6 @@
+{
+  "name": "sdk-docs",
+  "scripts": {
+    "start": "bun run index.ts"
+  }
+}
